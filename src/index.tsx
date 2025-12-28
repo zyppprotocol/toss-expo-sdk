@@ -101,3 +101,18 @@ export {
   type IntentExchangeRequest,
   type IntentExchangeResponse,
 } from './discovery';
+
+// Compression utilities
+export {
+  compressMetadata,
+  decompressMetadata,
+  compressIntentMetadata,
+  decompressIntentMetadata,
+  estimateCompressionSavings,
+} from './utils/compression';
+
+// WiFi Direct transport
+export {
+  WiFiDirectTransport,
+  SmartTransportSelector,
+} from './wifi';

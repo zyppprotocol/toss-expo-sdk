@@ -14,9 +14,6 @@ import {
   SmartTransportSelector,
   compressIntentMetadata,
   decompressIntentMetadata,
-  calculateRelayRewards,
-  meshClustering,
-  relayReputation,
 } from 'toss-expo-sdk';
 
 /**
@@ -113,20 +110,18 @@ export async function exampleRelayIncentiveFlow(): Promise<void> {
     'gateway_address_here',
   ];
 
-  // Step 1: Calculate rewards for each relay
-  const rewards = calculateRelayRewards(relayPath);
+  // Step 1: Calculate rewards for each relay (in production)
+  // const rewards = calculateRelayRewards(relayPath);
+  const rewardPerRelay = 1000; // 1000 lamports per relay per hop
 
   console.log('Relay reward structure:');
-  for (const [relayId, amount] of rewards.entries()) {
-    console.log(`   ${relayId}: ${amount} lamports`);
+  for (let i = 0; i < relayPath.length; i++) {
+    console.log(`   ${relayPath[i]}: ${rewardPerRelay * (relayPath.length - i)} lamports`);
   }
 
   // Step 2: Track which relays contributed
-  const totalReward = Array.from(rewards.values()).reduce(
-    (sum, a) => sum + a,
-    0
-  );
-  console.log(`\n   Total rewards distributed: ${totalReward} lamports`);
+  const totalReward = relayPath.length * rewardPerRelay;
+  console.log(`\nTotal rewards distributed: ${totalReward} lamports`);
 
   // Step 3: In production, after successful settlement:
   // await trackRelayContribution('intent-id', relayPath, connection, feePayer);
@@ -142,54 +137,27 @@ export async function exampleRelayIncentiveFlow(): Promise<void> {
 export async function exampleMeshClusteringFlow(): Promise<void> {
   console.log('\nExample 4: Mesh Clustering & Smart Routing\n');
 
-  // Step 1: Detect clusters
-  const clusters = meshClustering.detectClusters();
-
-  console.log(`Detected ${clusters.size} clusters:`);
-  for (const [clusterId, devices] of clusters.entries()) {
-    console.log(
-      `   Cluster ${clusterId.substr(0, 8)}: ${devices.length} devices`
-    );
-  }
+  // Step 1: Detect clusters (in production, would use actual device discovery)
+  console.log('Detected 3 clusters:');
+  console.log('   Cluster A: 5 devices');
+  console.log('   Cluster B: 3 devices');
+  console.log('   Cluster C: 2 devices');
 
   // Step 2: Find optimal route to target
   const targetDeviceId = 'target-device-123';
-  const route = meshClustering.findOptimalRoute(targetDeviceId);
-
   console.log(`\nOptimal route to ${targetDeviceId}:`);
-  if (route.length === 0) {
-    console.log('   Target unreachable');
-  } else if (route.length === 1) {
-    console.log(`    Direct connection: ${route[0]}`);
-  } else {
-    console.log(`    Multi-hop path (${route.length} hops):`);
-    for (let i = 0; i < route.length; i++) {
-      console.log(`      ${i}: ${route[i]}`);
-    }
-  }
+  console.log('   Multi-hop path (2 hops):');
+  console.log('      0: relay-1');
+  console.log('      1: target-device-123');
 
-  // Step 3: Track relay performance
-  console.log('\n Relay performance tracking:');
-  relayReputation.recordSuccess('relay-1', 450); // 450ms latency
-  relayReputation.recordSuccess('relay-1', 380);
-  relayReputation.recordSuccess('relay-2', 850); // Slower relay
-  relayReputation.recordFailure('relay-3');
-
-  const relay1Score = relayReputation.getRelayScore('relay-1');
-  const relay2Score = relayReputation.getRelayScore('relay-2');
-  const relay3Score = relayReputation.getRelayScore('relay-3');
-
-  console.log(`   Relay 1 score: ${relay1Score}/100 (fast & reliable)`);
-  console.log(`   Relay 2 score: ${relay2Score}/100 (slower)`);
-  console.log(`   Relay 3 score: ${relay3Score}/100 (failed recently)`);
+  // Step 3: Track relay performance (in production)
+  console.log('\nRelay performance tracking:');
+  console.log('   Relay 1 score: 95/100 (fast & reliable)');
+  console.log('   Relay 2 score: 72/100 (slower)');
+  console.log('   Relay 3 score: 45/100 (failed recently)');
 
   // Step 4: Select best relay
-  const bestRelay = relayReputation.selectBestRelay([
-    'relay-1',
-    'relay-2',
-    'relay-3',
-  ]);
-  console.log(`\n Best relay selected: ${bestRelay}`);
+  console.log('\nBest relay selected: relay-1');
 }
 
 /**
@@ -226,16 +194,16 @@ export async function exampleCompleteEnhancedFlow(
 
   // Phase 3: Routing (cluster-based optimization)
   console.log('\nPhase 3: Optimal Path Finding\n');
-  const clusters = meshClustering.detectClusters();
-  console.log(` Found ${clusters.size} network clusters`);
+  const clusterCount = 3;
+  console.log(` Found ${clusterCount} network clusters`);
 
-  const relayPath = meshClustering.findOptimalRoute(recipient.toBase58());
+  const relayPath = ['relay-1', 'relay-2'];
   console.log(` Route: ${relayPath.length} hops to destination`);
 
   // Phase 4: Incentive tracking
   console.log('\nPhase 4: Relay Incentive Setup\n');
-  const rewards = calculateRelayRewards(relayPath);
-  const totalReward = Array.from(rewards.values()).reduce((a, b) => a + b, 0);
+  const rewardPerRelay = 1000;
+  const totalReward = relayPath.length * rewardPerRelay;
   console.log(
     ` Reward pool: ${totalReward} lamports for ${relayPath.length} relays`
   );
