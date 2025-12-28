@@ -1,6 +1,6 @@
 {
   "name": "toss-expo-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The official React Native SDK for The Offline Solana Stack (TOSS)",
   "type": "module",
   "main": "./lib/module/index.js",
