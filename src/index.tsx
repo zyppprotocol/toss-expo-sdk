@@ -112,7 +112,4 @@ export {
 } from './utils/compression';
 
 // WiFi Direct transport
-export {
-  WiFiDirectTransport,
-  SmartTransportSelector,
-} from './wifi';
+export { WiFiDirectTransport, SmartTransportSelector } from './wifi';

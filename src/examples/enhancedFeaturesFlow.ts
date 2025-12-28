@@ -116,7 +116,9 @@ export async function exampleRelayIncentiveFlow(): Promise<void> {
 
   console.log('Relay reward structure:');
   for (let i = 0; i < relayPath.length; i++) {
-    console.log(`   ${relayPath[i]}: ${rewardPerRelay * (relayPath.length - i)} lamports`);
+    console.log(
+      `   ${relayPath[i]}: ${rewardPerRelay * (relayPath.length - i)} lamports`
+    );
   }
 
   // Step 2: Track which relays contributed
