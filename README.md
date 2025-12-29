@@ -1,5 +1,8 @@
 # TOSS Expo SDK
 
+<img width="1080" height="360" alt="image" src="https://github.com/user-attachments/assets/7e05de78-ef08-4dd6-a736-1ecf6b377c7f" />
+
+
 **TOSS (The Offline Solana Stack)** implements the complete [TOSS Technical Paper](./TOSS_PAPER_IMPLEMENTATION_VERIFICATION.md) — a protocol-correct approach to building offline-first Solana applications without compromising security or finality guarantees.
 
 [![npm version](https://img.shields.io/npm/v/toss-expo-sdk)](https://www.npmjs.com/package/toss-expo-sdk)
@@ -690,14 +693,3 @@ But TOSS **does not guarantee**:
 | Devnet  |  Live | https://api.devnet.solana.com       |
 | Testnet |  Live | https://api.testnet.solana.com      |
 | Mainnet |  Live | https://api.mainnet-beta.solana.com |
-
-##  Complete Documentation
-
-For comprehensive information, see:
-
-- [DOCUMENTATION_INDEX.md](./DOCUMENTATION_INDEX.md) - Complete documentation guide
-- [TOSS_PAPER_IMPLEMENTATION_VERIFICATION.md](./TOSS_PAPER_IMPLEMENTATION_VERIFICATION.md) - TOSS paper compliance
-- [PAPER_VS_IMPLEMENTATION_AUDIT.md](./PAPER_VS_IMPLEMENTATION_AUDIT.md) - Detailed technical audit
-- [USER_SECURITY_AND_KEY_MANAGEMENT.md](./USER_SECURITY_AND_KEY_MANAGEMENT.md) - Security model and biometric protection
-# toss-expo-sdk
-# toss-expo-sdk
